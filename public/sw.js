@@ -1,19 +1,40 @@
-// very small cache-first for same-origin GETs
-const CACHE = "ysm-v1";
+const CACHE = "ysm-v2";
+const OFFLINE_URL = "/offline";
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(CACHE));
+  e.waitUntil((async () => {
+    const c = await caches.open(CACHE);
+    await c.addAll(["/", "/offline"]);
+  })());
   self.skipWaiting();
 });
 self.addEventListener("activate", (e) => e.waitUntil(self.clients.claim()));
 self.addEventListener("fetch", (e) => {
-  const url = new URL(e.request.url);
-  if (e.request.method !== "GET" || url.origin !== location.origin) return;
+  const req = e.request;
+  const url = new URL(req.url);
+  if (req.method !== "GET" || url.origin !== location.origin) return;
+  // App shell navigations → network first, fallback to offline page
+  if (req.mode === "navigate") {
+    e.respondWith((async () => {
+      try {
+        const fresh = await fetch(req);
+        const c = await caches.open(CACHE);
+        c.put(req, fresh.clone());
+        return fresh;
+      } catch {
+        const c = await caches.open(CACHE);
+        const cached = await c.match(req);
+        return cached || c.match(OFFLINE_URL);
+      }
+    })());
+    return;
+  }
+  // Other GETs → cache first
   e.respondWith((async () => {
-    const cached = await caches.match(e.request);
+    const cached = await caches.match(req);
     if (cached) return cached;
-    const res = await fetch(e.request);
-    const cache = await caches.open(CACHE);
-    cache.put(e.request, res.clone());
-    return res;
+    const fresh = await fetch(req);
+    const c = await caches.open(CACHE);
+    c.put(req, fresh.clone());
+    return fresh;
   })());
 });
