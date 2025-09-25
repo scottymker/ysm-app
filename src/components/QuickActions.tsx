@@ -5,8 +5,8 @@ export default function QuickActions(){
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
       <Link className={cls} href="/tools/grounding">Grounding</Link>
       <Link className={cls} href="/tools/breathe">Breathe</Link>
+      <Link className={cls} href="/self-care">Self-Care</Link>
       <Link className={cls} href="/checkin">Mood</Link>
-      <Link className={cls} href="/crisis">Crisis</Link>
     </div>
   );
 }
