@@ -2,14 +2,22 @@ import HomeGreeting from "@/components/HomeGreeting";
 import QuickActions from "@/components/QuickActions";
 import ContinueCard from "@/components/ContinueCard";
 
-export default function HomePage(){
+export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[var(--surface-light)] text-[var(--color-ink)] dark:bg-[var(--surface-dark)] dark:text-white">
-      <div className="mx-auto max-w-2xl p-6 py-16">
+    <main className="min-h-screen bg-surface-light text-ink flex flex-col gap-6 p-6">
+      <div className="flex items-center gap-3">
+        <img
+          src="/logo.png"
+          alt=""
+          width="40"
+          height="40"
+          className="rounded-full"
+        />
         <HomeGreeting />
-        <QuickActions />
-        <ContinueCard />
       </div>
+
+      <QuickActions />
+      <ContinueCard />
     </main>
   );
 }
