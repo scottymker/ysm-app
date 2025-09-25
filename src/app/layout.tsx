@@ -9,6 +9,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         {children}
+        <Footer />
         <BottomNav />
               <SplashStyles />
       </body>
@@ -42,3 +43,16 @@ export const metadata = {
     apple: "/apple-icon.png"
   }
 };
+
+function Footer(){
+  return (
+    <footer className="mx-auto max-w-2xl p-6 text-xs opacity-70">
+      <div className="flex flex-wrap items-center gap-3">
+        <span>© {new Date().getFullYear()} YouStillMatter</span>
+        <a className="underline" href="/(legal)/privacy">Privacy</a>
+        <a className="underline" href="/(legal)/terms">Terms</a>
+        <a className="underline" href="/resources">Resources</a>
+      </div>
+    </footer>
+  );
+}
