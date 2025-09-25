@@ -1,52 +1,36 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export type JournalEntry = {
   id: string;
-  dateISO: string;
+  createdAt: number;
+  updatedAt: number;
+  title: string;
   body: string;
-  tags?: string[];
 };
 
 type State = {
   entries: JournalEntry[];
-  add: (e: Omit<JournalEntry, "id" | "dateISO"> & Partial<Pick<JournalEntry,"tags">>) => JournalEntry;
+  add: (e: Omit<JournalEntry, "id"|"createdAt"|"updatedAt">) => string;
+  update: (id: string, patch: Partial<Omit<JournalEntry,"id"|"createdAt">>) => void;
   remove: (id: string) => void;
   clear: () => void;
 };
 
-const STORAGE_KEY = "ysm_journal_v1";
-
-function load(): JournalEntry[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as JournalEntry[]) : [];
-  } catch {
-    return [];
-  }
-}
-
-export const useJournalStore = create<State>((set, get) => ({
-  entries: typeof window === "undefined" ? [] : load(),
-  add: (e) => {
-    const entry: JournalEntry = {
-      id: crypto.randomUUID(),
-      dateISO: new Date().toISOString(),
-      body: e.body,
-      tags: e.tags ?? [],
-    };
-    const next = [entry, ...get().entries];
-    if (typeof window !== "undefined") localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    set({ entries: next });
-    return entry;
-  },
-  remove: (id) => {
-    const next = get().entries.filter((x) => x.id !== id);
-    if (typeof window !== "undefined") localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    set({ entries: next });
-  },
-  clear: () => {
-    if (typeof window !== "undefined") localStorage.removeItem(STORAGE_KEY);
-    set({ entries: [] });
-  },
-}));
+export const useJournalStore = create<State>()(persist(
+  (set, get) => ({
+    entries: [],
+    add: (e) => {
+      const id = crypto.randomUUID();
+      const now = Date.now();
+      set({ entries: [{ id, createdAt: now, updatedAt: now, ...e }, ...get().entries] });
+      return id;
+    },
+    update: (id, patch) => set({
+      entries: get().entries.map(x => x.id === id ? { ...x, ...patch, updatedAt: Date.now() } : x)
+    }),
+    remove: (id) => set({ entries: get().entries.filter(x => x.id !== id) }),
+    clear: () => set({ entries: [] }),
+  }),
+  { name: "ysm_journal_v1" }
+));
