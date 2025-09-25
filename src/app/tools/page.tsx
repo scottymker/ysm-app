@@ -9,6 +9,7 @@ export default function ToolsIndex(){
         <Link className={cls} href="/tools/grounding">Grounding 5-4-3-2-1</Link>
         <Link className={cls} href="/tools/breathe">Breathe</Link>
         <Link className={cls} href="/self-care">Self-Care Menu</Link>
+        <Link className={cls} href="/tools/calm-toolkit">Calm Toolkit</Link>
       </div>
     </main>
   );
