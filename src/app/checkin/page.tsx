@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useMoodStore } from "@/stores/useMoodStore";
+import Link from "next/link";
 
 const EMOTIONS = ["happy","calm","anxious","sad","overwhelmed","proud"] as const;
 
@@ -71,7 +72,7 @@ export default function CheckInPage() {
 
         <div className="flex gap-3">
           <button className="rounded-xl border px-4 py-2" type="submit">Save</button>
-          <a className="rounded-xl border px-4 py-2" href="/insights">Insights</a>
+          <Link className="rounded-xl border px-4 py-2" href="/insights">Insights</Link>
         </div>
 
         <p className="text-xs opacity-60">Private to your device. Clearing browser storage will remove entries.</p>
