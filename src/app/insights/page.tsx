@@ -1,81 +1,59 @@
 "use client";
 
-import { useMemo } from "react";
-import { useMoodStore } from "@/stores/useMoodStore";
+import Link from "next/link";
+import { useJournalStore } from "@/stores/useJournalStore";
+import { useMoodStore } from "@/stores/useMoodStore"; // already created earlier by the agent
+import { downloadJSON, pickJSON } from "@/lib/backup";
 
-function avg(nums: number[]) { return nums.length ? (nums.reduce((a,b)=>a+b,0)/nums.length) : 0; }
-
-export default function InsightsPage(){
-  const entries = useMoodStore(s => s.entries);
-
-  const now = useMemo(()=>Date.now(), []);
-  const byDays = useMemo(()=>{
-    const map = new Map<string, number[]>();
-    for(const e of entries){
-      const d = new Date(e.dateISO);
-      const key = d.toISOString().slice(0,10);
-      const arr = map.get(key) ?? [];
-      arr.push(e.score);
-      map.set(key, arr);
-    }
-    // last 30 days, newest last for the chart
-    const days:number[] = [];
-    const labels:string[] = [];
-    for(let i=29;i>=0;i--){
-      const dt = new Date(now - i*86400000);
-      const key = dt.toISOString().slice(0,10);
-      labels.push(key.slice(5)); // MM-DD
-      days.push( avg(map.get(key) ?? []) );
-    }
-    return { labels, days };
-  }, [entries, now]);
-
-  function windowAvg(n: number){
-    const cutoff = now - n*86400000;
-    const scores = entries.filter(e => new Date(e.dateISO).getTime() >= cutoff).map(e=>e.score);
-    return Math.round(avg(scores)*10)/10;
-  }
-
-  const a7  = windowAvg(7);
-  const a30 = windowAvg(30);
-  const a90 = windowAvg(90);
-
-  // simple sparkline path
-  const width = 320, height = 80, pad = 6;
-  const max = 10, min = 1;
-  const pts = byDays.days.map((v,i)=>{
-    const x = pad + (i*(width-2*pad))/(byDays.days.length-1 || 1);
-    const y = height - pad - ((v - min) / (max - min)) * (height - 2*pad);
-    return `${i===0 ? 'M' : 'L'}${x},${isFinite(y)?y:height-pad}`;
-  }).join(" ");
+export default function InsightsPage() {
+  const journal = useJournalStore();
+  const mood = useMoodStore();
 
   return (
-    <main className="mx-auto max-w-2xl p-6">
+    <main className="mx-auto max-w-2xl p-6 space-y-6">
       <h1 className="text-xl font-semibold">Insights</h1>
 
-      <div className="mt-6 grid grid-cols-3 gap-3">
-        <div className="rounded-xl border p-3 text-center">
-          <div className="text-xs opacity-70">Avg 7d</div>
-          <div className="text-2xl font-semibold tabular-nums">{a7.toFixed(1)}</div>
-        </div>
-        <div className="rounded-xl border p-3 text-center">
-          <div className="text-xs opacity-70">Avg 30d</div>
-          <div className="text-2xl font-semibold tabular-nums">{a30.toFixed(1)}</div>
-        </div>
-        <div className="rounded-xl border p-3 text-center">
-          <div className="text-xs opacity-70">Avg 90d</div>
-          <div className="text-2xl font-semibold tabular-nums">{a90.toFixed(1)}</div>
-        </div>
-      </div>
+      <section className="rounded-xl border p-4">
+        <h2 className="font-medium">Back up your data</h2>
+        <p className="text-sm opacity-80">Exports a JSON file with your Journal and Mood entries.</p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <button
+            className="rounded-xl border px-3 py-2 text-sm"
+            onClick={() => downloadJSON("ysm-backup.json", {
+              journal: journal.entries,
+              mood: mood.entries ?? mood.history ?? []
+            })}
+          >Export</button>
 
-      <div className="mt-6 rounded-xl border p-3">
-        <div className="mb-2 text-sm opacity-70">Last 30 days</div>
-        <svg viewBox={`0 0 ${width} ${height}`} width="100%" height="100">
-          <polyline points={`0,${height-pad} ${width},${height-pad}`} fill="none" stroke="currentColor" opacity="0.15" />
-          <path d={pts || `M${pad},${height-pad} L${width-pad},${height-pad}`} fill="none" stroke="currentColor" strokeWidth="2" />
-        </svg>
-        <div className="mt-1 text-xs opacity-60">Higher is better (10)</div>
-      </div>
+          <button
+            className="rounded-xl border px-3 py-2 text-sm"
+            onClick={async () => {
+              const payload = await pickJSON<{ journal?: any[]; mood?: any[] }>();
+              if (!payload) return;
+              if (Array.isArray(payload.journal)) {
+                journal.clear();
+                payload.journal.forEach((e: any) =>
+                  journal.add({ title: e.title || "", body: e.body || "" })
+                );
+              }
+              if (Array.isArray(payload.mood) && mood.add) {
+                payload.mood.forEach((m: any) =>
+                  mood.add({ score: Number(m.score)||5, tags: m.tags||[], note: m.note||"" })
+                );
+              }
+              alert("Import complete.");
+            }}
+          >Import</button>
+        </div>
+      </section>
+
+      <section className="rounded-xl border p-4">
+        <h2 className="font-medium">Explore</h2>
+        <div className="mt-2 flex gap-2">
+          <Link className="rounded-xl border px-3 py-2 text-sm" href="/journal">Journal</Link>
+          <Link className="rounded-xl border px-3 py-2 text-sm" href="/checkin">Add Mood</Link>
+        </div>
+      </section>
     </main>
   );
 }
