@@ -1,11 +1,6 @@
 import "./globals.css";
 import BottomNav from "@/components/BottomNav";
 
-export const metadata = {
-  title: "YouStillMatter",
-  description: "Calming tools and crisis card — private and offline-friendly.",
-  manifest: "/manifest.webmanifest"
-};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -17,3 +12,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
+export const metadata = {
+  title: "YouStillMatter",
+  description: "Calming tools, grounding, and a crisis card—private and offline-friendly.",
+  manifest: "/manifest.webmanifest",
+  themeColor: "#0b1220",
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png"
+  }
+};
