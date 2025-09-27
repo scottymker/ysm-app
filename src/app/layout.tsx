@@ -1,38 +1,37 @@
+// src/app/layout.tsx
+import type { Metadata } from "next";
+import "./globals.css";
+
 import RegisterSW from "@/components/RegisterSW";
 import SplashStyles from "@/components/SplashStyles";
 import BottomNav from "@/components/BottomNav";
-import "./globals.css";
 
-export const metadata = {
+export const metadata: Metadata = {
   applicationName: "YouStillMatter",
   title: "YouStillMatter",
   description:
     "Calming tools, grounding, and a crisis card—private and offline-friendly.",
-
   // Use the public manifest with a cache-buster
   manifest: "/manifest.webmanifest?v=7",
-
-  // Adaptive theme color
+  // Theme colors (light/dark)
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#F8FAFC" },
     { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
   ],
-
   // iOS PWA presentation
   appleWebApp: {
     capable: true,
     title: "YouStillMatter",
     statusBarStyle: "black-translucent",
   },
-
-  // Point to your versioned icons in /public (NOT app/icon.png)
+  // Favicons & Apple touch icon — use real filenames with query-string versioning
   icons: {
     icon: [
-      { url: "/favicon-16.v6.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32.v6.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16.png?v=7", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32.png?v=7", sizes: "32x32", type: "image/png" },
     ],
-    apple: { url: "/apple-touch-icon.v6.png", sizes: "180x180", type: "image/png" },
-    other: [{ rel: "shortcut icon", url: "/favicon-32.v6.png" }],
+    shortcut: "/favicon-32.png?v=7",
+    apple: { url: "/apple-touch-icon.png?v=7", sizes: "180x180", type: "image/png" },
   },
 };
 
