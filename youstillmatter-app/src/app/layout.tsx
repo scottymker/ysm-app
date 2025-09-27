@@ -15,9 +15,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={inter.variable}>
       <head>
         <meta name="theme-color" content="#0b1220" />
-        <link rel="manifest" href="/manifest.webmanifest?v=5" />
-        <link rel="icon" href="/icon-192.png?v=5" />
-        <link rel="apple-touch-icon" href="/icon-192.png?v=5" />
+        <link rel="manifest" href="/manifest.webmanifest?v=6" />
+
+        {/* FAVICONS (tab icon) */}
+        <link rel="icon" type="image/png" href="/favicon-32.v6.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/favicon-16.v6.png" sizes="16x16" />
+        <link rel="shortcut icon" href="/favicon-32.v6.png" type="image/png" />
+
+        {/* iOS Home Screen icon */}
+        <link rel="apple-touch-icon" href="/apple-touch-icon.v6.png" sizes="180x180" />
       </head>
       <body className="bg-surface-light text-ink font-sans min-h-screen flex flex-col">
         <header className="w-full py-4 px-6 bg-white border-b border-divider flex items-center justify-between">
