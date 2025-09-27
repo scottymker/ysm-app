@@ -1,3 +1,8 @@
+/* Tailwind layers (REQUIRED) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* === THEME TOKENS === */
 :root{
   --brand:#623e8e;    /* logo purple */
@@ -7,10 +12,8 @@
   --card:#ffffff;     /* panels/cards */
   --border:#e9d7ff;   /* soft border on purple bg */
   --focus:#2b1b48;    /* darker brand for focus ring */
-
-  --accent:#8a67c1;        /* secondary accent */
-  --accent-weak:#e7d8ff;   /* very light accent wash */
-
+  --accent:#8a67c1;   /* secondary accent */
+  --accent-weak:#e7d8ff; /* very light accent wash */
   --ok:#13ad5d; --warn:#ffb02e; --danger:#e5484d;
 }
 
@@ -25,27 +28,24 @@
 /* base */
 html,body{height:100%; background:var(--bg); color:var(--fg);}
 
-/* subtle splash of color */
+/* splash of color */
 body::before{
-  content:"";
-  position:fixed; inset:-20% -20% auto -20%;
-  height:55vh; pointer-events:none; z-index:0; opacity:.8; filter:blur(8px);
+  content:""; position:fixed; inset:-20% -20% auto -20%; height:55vh;
+  pointer-events:none; z-index:0; opacity:.8; filter:blur(8px);
   background:
     radial-gradient(1200px 600px at 20% -10%, color-mix(in oklab, var(--brand) 25%, transparent) 0%, transparent 60%),
     radial-gradient(900px 420px at 90% -10%, color-mix(in oklab, var(--accent) 22%, transparent) 0%, transparent 65%);
 }
-/* ensure app content sits above splash */
 #__next, body > * { position:relative; z-index:1; }
 
-/* handy utility classes */
+/* helpers */
 .card{ background:var(--card); border:1px solid var(--border); border-radius:16px; }
-.btn{ display:inline-flex; align-items:center; justify-content:center; border-radius:12px; padding:.5rem 1rem; font-weight:600; transition:filter .15s; box-shadow:0 1px 0 rgba(0,0,0,.04); }
+.btn{ @apply inline-flex items-center justify-center rounded-xl px-4 py-2 font-semibold transition; box-shadow:0 1px 0 rgba(0,0,0,.04); }
 .btn-primary{ color:#fff; background:var(--brand); }
 .btn-primary:hover{ filter:brightness(1.05); }
 .btn-outline{ color:var(--brand); background:transparent; border:1px solid color-mix(in oklab, var(--brand) 45%, white); }
 .btn-ghost{ color:var(--brand); background:transparent; }
 .btn:focus-visible{ outline:3px solid color-mix(in oklab, var(--focus) 85%, transparent); outline-offset:2px; }
-
 .border-divider{ border-color:var(--border); }
 .text-muted{ color:var(--muted); }
 .bg-accent-weak{ background:var(--accent-weak); }
