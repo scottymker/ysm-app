@@ -1,21 +1,29 @@
 import type { Config } from "tailwindcss";
-export default {
-  darkMode: ["class", '[data-theme="dark"]'],
-  content: [
-    "./src/app/**/*.{ts,tsx}",
-    "./src/components/**/*.{ts,tsx}",
-    "./src/styles/**/*.{ts,tsx,css}"
-  ],
+
+const config: Config = {
+  darkMode: ["class", "[data-theme='dark']"],
+  content: ["./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
     extend: {
       colors: {
-        primary: "#0EA5E9",
-        ink: "#111111",
-        surface: { light: "#F8FAFC", dark: "#0B1220" },
-        divider: "#E5E7EB"
+        brand: "var(--brand)",
+        bg: "var(--bg)",
+        fg: "var(--fg)",
+        card: "var(--card)",
+        border: "var(--border)",
+        accent: "var(--accent)",
+        "accent-weak": "var(--accent-weak)",
+        focus: "var(--focus)",
+        muted: "var(--muted)",
+        ok: "var(--ok)",
+        warn: "var(--warn)",
+        danger: "var(--danger)",
       },
-      borderRadius: { xl: "0.9rem", "2xl": "1.25rem" }
-    }
+      borderRadius: { xl: "16px", "2xl": "20px" },
+      boxShadow: { card: "0 10px 20px rgba(0,0,0,.06)" },
+    },
   },
-  plugins: []
-} satisfies Config;
+  plugins: [],
+};
+
+export default config;
