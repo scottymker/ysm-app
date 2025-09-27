@@ -1,50 +1,60 @@
 import RegisterSW from "@/components/RegisterSW";
 import SplashStyles from "@/components/SplashStyles";
-import "./globals.css";
 import BottomNav from "@/components/BottomNav";
-
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <body>
-        {children}
-        <Footer />
-        <BottomNav />
-              <SplashStyles />
-      </body>
-    </html>
-  );
-}
-
+import "./globals.css";
 
 export const metadata = {
   applicationName: "YouStillMatter",
   title: "YouStillMatter",
-  description: "Calming tools, grounding, and a crisis card—private and offline-friendly.",
-  manifest: "/manifest.webmanifest",
+  description:
+    "Calming tools, grounding, and a crisis card—private and offline-friendly.",
 
-  // Adaptive status bar + theme colors
+  // Use the public manifest with a cache-buster
+  manifest: "/manifest.webmanifest?v=7",
+
+  // Adaptive theme color
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F8FAFC" },  // surface light
-    { media: "(prefers-color-scheme: dark)",  color: "#0b1220" }   // brand dark
+    { media: "(prefers-color-scheme: light)", color: "#F8FAFC" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
   ],
 
   // iOS PWA presentation
   appleWebApp: {
     capable: true,
     title: "YouStillMatter",
-    statusBarStyle: "black-translucent" // or "default" / "black"
+    statusBarStyle: "black-translucent",
   },
 
-  // Icons (Next will also pick up app/icon.png and app/apple-icon.png automatically)
+  // Point to your versioned icons in /public (NOT app/icon.png)
   icons: {
-    icon: "/icon.png",
-    apple: "/apple-icon.png"
-  }
+    icon: [
+      { url: "/favicon-16.v6.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32.v6.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: { url: "/apple-touch-icon.v6.png", sizes: "180x180", type: "image/png" },
+    other: [{ rel: "shortcut icon", url: "/favicon-32.v6.png" }],
+  },
 };
 
-function Footer(){
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        <RegisterSW />
+        <BottomNav />
+        <SplashStyles />
+        <Footer />
+      </body>
+    </html>
+  );
+}
+
+function Footer() {
   return (
     <footer className="mx-auto max-w-2xl p-6 text-xs opacity-70">
       <div className="flex flex-wrap items-center gap-3">
