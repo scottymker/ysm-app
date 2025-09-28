@@ -1,6 +1,7 @@
+/** PostCSS for Next.js + Tailwind */
 module.exports = {
   plugins: {
-    tailwindcss: {},
+    '@tailwindcss/postcss': {},   // ← use this (NOT "tailwindcss")
     autoprefixer: {},
   },
 };
