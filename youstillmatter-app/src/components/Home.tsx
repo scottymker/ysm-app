@@ -7,7 +7,7 @@ export function HomeGreeting() {
   else if (hour < 18) greeting = "Good afternoon. You matter.";
   else greeting = "Good evening. You matter.";
   return (
-    <section aria-label="Greeting" className="mb-6 text-2xl font-semibold flex items-center gap-2">
+    <section aria-label="Greeting" className="mb-6 text-2xl font-semibold flex items-center gap-2 justify-between">
       <Sparkle aria-hidden="true" className="text-sky-500" />
       {greeting}
     </section>

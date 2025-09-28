@@ -18,7 +18,7 @@ export default function BottomNav() {
   const pathname = usePathname() || "/";
   return (
     <nav className="fixed inset-x-0 bottom-0 z-40 border-t bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-black/60" aria-label="Primary">
-      <ul className="mx-auto flex max-w-md items-stretch justify-between gap-1 p-2">
+      <ul className="mx-auto flex max-w-md items-stretch justify-between gap-1 p-2 justify-between">
         {items.map(({ href, label, Icon }) => {
           const active = pathname === href || (href !== "/" && pathname.startsWith(href));
           return (

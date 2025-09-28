@@ -15,7 +15,7 @@ export default function BottomNav() {
   return (
     <nav
       aria-label="Main navigation"
-      className="fixed bottom-0 left-0 right-0 bg-white border-t border-divider flex justify-around py-3 z-10 md:hidden"
+      className="fixed bottom-0 left-0 right-0 bg-white border-t border-divider flex justify-around py-3 z-10 md:hidden justify-between"
     >
       {navItems.map(({ href, label, icon: Icon, color }) => (
         <Link

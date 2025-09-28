@@ -43,7 +43,7 @@ export default function InstallPWA() {
       <p className="mt-1 text-sm opacity-80">
         Install as an app for quick access and better offline support.
       </p>
-      <div className="mt-3 flex gap-2">
+      <div className="mt-3 flex gap-2 justify-between">
         <button
           className="rounded-xl border px-3 py-2 disabled:opacity-50"
           onClick={doInstall}

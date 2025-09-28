@@ -3,7 +3,7 @@ import { BarChart3, Info } from "lucide-react";
 export function InsightsSummary() {
   return (
     <section className="w-full max-w-md bg-white rounded-xl shadow p-4 mb-6 border border-divider" aria-label="Insights Summary">
-      <div className="flex items-center gap-2 mb-2"><Info className="text-sky-500" /> <h2 className="text-lg font-bold">Mood Insights</h2></div>
+      <div className="flex items-center gap-2 mb-2 justify-between"><Info className="text-sky-500" /> <h2 className="text-lg font-bold">Mood Insights</h2></div>
       <p className="text-sm text-gray-600">Gentle insights and trends will appear here as you check in.</p>
     </section>
   );

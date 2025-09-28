@@ -44,7 +44,7 @@ export default function CrisisPage() {
               const hasAny = (c.name?.trim() || c.phone?.trim());
               if (!hasAny) return null;
               return (
-                <li key={i} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border p-3">
+                <li key={i} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border p-3 justify-between">
                   <div className="min-w-0">
                     <div className="font-medium truncate">{c.name || "(No name)"}</div>
                     {c.phone ? <div className="text-sm opacity-70">{c.phone}</div> : null}

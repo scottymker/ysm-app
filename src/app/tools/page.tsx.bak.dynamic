@@ -1,0 +1,21 @@
+import dynamic from "next/dynamic";
+const SettingsPanel = dynamic(() => import("@/components/settings/SettingsPanel"), { ssr: false });
+
+export default function ToolsIndex() {
+  return (
+    <main className="mx-auto max-w-3xl p-6 space-y-6">
+      <section className="space-y-2">
+        <h1 className="text-2xl font-bold">Tools</h1>
+        <ul className="grid sm:grid-cols-2 gap-2">
+          <li><a className="underline" href="/tools/screeners">Screeners (PHQ-9 &amp; GAD-7)</a></li>
+          <li><a className="underline" href="/journal">Journal</a></li>
+          <li><a className="underline" href="/crisis">Crisis</a></li>
+          <li><a className="underline" href="/home">Home</a></li>
+        </ul>
+      </section>
+
+      {/* Settings BELOW the tools list per request */}
+      <SettingsPanel />
+    </main>
+  );
+}

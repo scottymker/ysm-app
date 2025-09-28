@@ -64,7 +64,7 @@ export default function CalmToolkitPage() {
 
       <Section title="Three people I can text or call">
         {[0, 1, 2].map((i) => (
-          <div key={i} className="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <div key={i} className="flex flex-col gap-2 sm:flex-row sm:items-center justify-between">
             <input
               value={contacts[i]?.name || ""}
               onChange={(e) => setContact(i, { name: e.target.value, phone: contacts[i]?.phone || "" })}

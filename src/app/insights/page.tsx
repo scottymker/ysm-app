@@ -228,7 +228,7 @@ export default function InsightsPage() {
       <section className="rounded-xl border p-4">
         <h2 className="font-medium">Back up your data</h2>
         <p className="text-sm opacity-80">Export a JSON with Journal & Mood; import to restore.</p>
-        <div className="mt-3 flex flex-wrap gap-2">
+        <div className="mt-3 flex flex-wrap gap-2 justify-between">
           <button
             className="rounded-xl border px-3 py-2 text-sm"
             onClick={() =>

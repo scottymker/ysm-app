@@ -30,7 +30,7 @@ export default function CheckInPage() {
       <form onSubmit={submit} className="mt-6 space-y-6">
         <div>
           <label className="block text-sm opacity-80">How are you feeling (1–10)?</label>
-          <div className="mt-2 flex items-center gap-3">
+          <div className="mt-2 flex items-center gap-3 justify-between">
             <input
               type="range" min={1} max={10} value={score}
               onChange={(e)=>setScore(Number(e.target.value))}

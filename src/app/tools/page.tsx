@@ -1,16 +1,58 @@
-import Link from "next/link";
+"use client";
+import SettingsPanel from "../../components/settings/SettingsPanel";
 
-export default function ToolsIndex(){
-  const cls="rounded-xl border p-4 text-center hover:bg-white/50 dark:hover:bg-white/10";
+function Tile({
+  href,
+  label,
+  sub,
+}: { href: string; label: string; sub?: string }) {
   return (
-    <main className="mx-auto max-w-2xl p-6">
-      <h1 className="text-xl font-semibold">Tools</h1>
-      <div className="mt-6 grid grid-cols-2 gap-3">
-        <Link className={cls} href="/tools/grounding">Grounding 5-4-3-2-1</Link>
-        <Link className={cls} href="/tools/breathe">Breathe</Link>
-        <Link className={cls} href="/self-care">Self-Care Menu</Link>
-        <Link className={cls} href="/tools/calm-toolkit">Calm Toolkit</Link>
+    <a
+      href={href}
+      className="rounded-2xl border px-5 py-4 hover:shadow-md transition flex items-center justify-between"
+    >
+      <div>
+        <div className="font-semibold">{label}</div>
+        {sub ? <div className="text-xs text-gray-500">{sub}</div> : null}
       </div>
+      <span className="text-sm opacity-70">Open →</span>
+    </a>
+  );
+}
+
+export default function ToolsIndex() {
+  return (
+    <main className="mx-auto max-w-3xl p-6 space-y-6">
+      <section className="space-y-3">
+        <h1 className="text-2xl font-bold">Tools</h1>
+
+        {/* Button-style tiles */}
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Tile
+            href="/tools/screeners"
+            label="Screeners (PHQ-9 & GAD-7)"
+            sub="Quick self-screens with local save"
+          />
+          <Tile
+            href="/journal"
+            label="Journal"
+            sub="Write, edit, delete entries"
+          />
+          <Tile
+            href="/crisis"
+            label="Crisis"
+            sub="Emergency resources"
+          />
+          <Tile
+            href="/home"
+            label="Home"
+            sub="Calming tools & grounding"
+          />
+        </div>
+      </section>
+
+      {/* Settings BELOW the buttons */}
+      <SettingsPanel />
     </main>
   );
 }

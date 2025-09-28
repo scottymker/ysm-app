@@ -68,7 +68,7 @@ export default function GroundingPage() {
         ))}
       </div>
 
-      <div className="mt-6 flex items-center gap-3">
+      <div className="mt-6 flex items-center gap-3 justify-between">
         <button
           className="rounded-xl border px-4 py-2 disabled:opacity-50"
           onClick={() => setStepIdx((i) => Math.max(0, i - 1))}

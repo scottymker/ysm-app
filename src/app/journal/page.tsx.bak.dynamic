@@ -1,0 +1,7 @@
+import dynamic from "next/dynamic";
+// Render the client side journal UI without making this page a client component
+const JournalPageClient = dynamic(() => import("@/components/journal/JournalPageClient"), { ssr: false });
+
+export default function JournalPage() {
+  return <JournalPageClient />;
+}

@@ -13,7 +13,6 @@ export const metadata = {
   manifest: "/manifest.webmanifest?v=7",
 
   // Adaptive theme color
-  themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#F8FAFC" },
     { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
   ],
@@ -66,3 +65,11 @@ function Footer() {
     </footer>
   );
 }
+
+/** Next.js 15: themeColor belongs in the viewport export (not metadata) */
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+  ],
+};

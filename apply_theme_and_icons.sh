@@ -168,7 +168,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 function Footer(){
   return (
     <footer className="mx-auto max-w-3xl p-6 text-xs text-muted">
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3 justify-between">
         <span>© {new Date().getFullYear()} YouStillMatter</span>
         <a className="underline" href="/(legal)/privacy">Privacy</a>
         <a className="underline" href="/(legal)/terms">Terms</a>

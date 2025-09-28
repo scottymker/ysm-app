@@ -1,0 +1,27 @@
+[
+  {
+    "name": "988 Suicide & Crisis Lifeline",
+    "desc": "24/7 free support in the U.S.",
+    "url": "https://988lifeline.org/",
+    "tel": "tel:988",
+    "emergency": true
+  },
+  {
+    "name": "Crisis Text Line",
+    "desc": "Text HOME to 741741 to connect with a Crisis Counselor.",
+    "url": "https://www.crisistextline.org/",
+    "sms": "sms:741741?&body=HOME",
+    "emergency": true
+  },
+  {
+    "name": "NAMI HelpLine",
+    "desc": "Education, referrals, and support for mental health.",
+    "url": "https://www.nami.org/help",
+    "tel": "tel:+18009509500"
+  },
+  {
+    "name": "SAMHSA Treatment Locator",
+    "desc": "Find treatment and support services near you.",
+    "url": "https://findtreatment.gov/"
+  }
+]
