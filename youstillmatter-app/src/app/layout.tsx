@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* iOS Home Screen icon */}
         <link rel="apple-touch-icon" href="/apple-touch-icon.v6.png" sizes="180x180" />
       </head>
-      <body className="bg-surface-light text-ink font-sans min-h-screen flex flex-col">
+      <body className="bg-surface-light text-ink font-sans min-h-screen flex flex-col justify-between">
         <header className="w-full py-4 px-6 bg-white border-b border-divider flex items-center justify-between">
           <h1 className="text-xl font-bold tracking-tight">YouStillMatter</h1>
         </header>
